@@ -42,7 +42,7 @@ class PongGame(Widget):
 class PongApp(App):
     def build(self):
         game = PongGame()
-        Clock.schedule_interval(gamex.update, 1.0/60.0)
+        Clock.schedule_interval(game.update, 1.0/60.0)
         return game
     
 if __name__ == '__main__':
