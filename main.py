@@ -1,6 +1,7 @@
 from unicodedata import numeric
 from kivy.app import App
 from kivy.uix.widget import Widget
+from kivy.vector import Vector
 
 class PongBall(Widget):
     #this make the "ball move"
