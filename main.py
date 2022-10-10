@@ -20,6 +20,17 @@ class PongBall(Widget):
     
     def move(self):
         self.pos = Vector(*self.velocity) + self.pos
+        
+class PongPaddle(Widget):
+    score = NumericProperty(0)
+    
+    def bounce_ball(self, ball):
+        """ increase ball speed every time the ball hits a paddle """
+        if self.collide_widget(ball):
+            speedup = 1.1
+            offset = 0.02 * Vector(0, ball.center_y-self.center)
+            ball.velocity = speedup * (offset - ball.velocity)
+    # end def
 
 class PongGame(Widget):
     ball = ObjectProperty(None)
@@ -44,7 +55,16 @@ class PongGame(Widget):
         if (self.ball.x < 0) or (self.ball.right > self.width):
             self.ball.velocity_x *= -1
         
-        pass
+    def on_touch_move(self, touch):
+        """
+        Purpose: ball and paddle interaction 
+        """
+        if touch.x < self.width /3:
+            self.player1.center_y = touch.y
+        if touch.x > self.width - self.width /3:
+            self.player2.center_y = touch.y
+        
+    # end def
 
 class PongApp(App):
     def build(self):
